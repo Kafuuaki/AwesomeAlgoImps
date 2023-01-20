@@ -1,3 +1,5 @@
+// bfs version https://leetcode.cn/problems/binary-tree-right-side-view/solution/er-cha-shu-de-you-shi-tu-by-leetcode-solution/
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -70,6 +72,51 @@ public:
         if (root == nullptr)
             return sol;
         bfs(root);
+        return sol;
+    }
+};
+
+// dfs version
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution
+{
+public:
+    vector<int> sol;
+
+    void dfs(TreeNode *root, int level)
+    {
+        if (!root)
+            return;
+
+        // when to push
+        // when dfs visit the first deeper node
+        // the size of solution is the current depth iterated
+        if (level == sol.size())
+        {
+            sol.push_back(root->val);
+        }
+
+        // for the next node, the level is current level + 1
+        level++;
+        // dfs recursion
+        // always go right first
+        dfs(root->right, level);
+        dfs(root->left, level);
+    }
+
+    vector<int> rightSideView(TreeNode *root)
+    {
+        dfs(root, 0);
         return sol;
     }
 };
