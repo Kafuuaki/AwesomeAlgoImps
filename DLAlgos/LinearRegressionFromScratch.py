@@ -33,8 +33,11 @@ class SGD(d2l.HyperParameters):
                 param.grad.zero_()
 
 class Train(d2l.Trainer):
-    def __init__(self):
+    def __init__(self, max_epochs):
         super().__init__()
+        self.max_epoch = max_epochs
+
+
 
     def prepare_batch(self, batch):
         return batch
